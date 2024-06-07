@@ -16,7 +16,12 @@ st.write('The name on your Smoothie will be', name_on_order)
 cnx = st.connection("snowflake")
 session = cnx.session()
 my_df = session.table("smoothies.public.fruit_options").select(col('FRUIT_NAME'), col('SEARCH_ON'))
-st.dataframe(data=my_df, use_container_width=True)
+# st.dataframe(data=my_df, use_container_width=True)
+# st.stop()
+
+# Convert the Snowpark Dataframe to a Pandas Dataframe
+pd_df = my_df.to_pandas()
+st.dataframe(pd_df)
 st.stop()
 
 ingredient_list = st.multiselect(
